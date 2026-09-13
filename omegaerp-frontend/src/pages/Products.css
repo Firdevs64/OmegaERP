@@ -1,0 +1,242 @@
+.products-page {
+  min-height: 100vh;
+  padding: 30px;
+  background-color: #f1f5f9;
+}
+
+.products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.products-header h1 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 28px;
+}
+
+.products-header p {
+  margin: 6px 0 0;
+  color: #64748b;
+}
+
+.add-product-button {
+  padding: 11px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-product-button:hover {
+  background-color: #1d4ed8;
+}
+
+/* Yeni ürün formu */
+
+.product-form-card {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 22px;
+}
+
+.product-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 22px;
+}
+
+.product-form-header h2 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 20px;
+}
+
+.product-form-header p {
+  margin: 5px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.close-form-button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  background-color: #f1f5f9;
+  color: #475569;
+  cursor: pointer;
+}
+
+.close-form-button:hover {
+  background-color: #e2e8f0;
+}
+
+.product-form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+
+.product-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.product-form-group label {
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.product-form-group input,
+.product-form-group select {
+  width: 100%;
+  padding: 10px 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  outline: none;
+  background-color: white;
+}
+
+.product-form-group input:focus,
+.product-form-group select:focus {
+  border-color: #2563eb;
+}
+
+.product-form-error {
+  margin-top: 18px;
+  padding: 11px 12px;
+  border-radius: 7px;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+.product-form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.cancel-button,
+.save-product-button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 7px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background-color: #e2e8f0;
+  color: #334155;
+}
+
+.save-product-button {
+  background-color: #2563eb;
+  color: white;
+}
+
+.save-product-button:hover {
+  background-color: #1d4ed8;
+}
+
+.save-product-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Ürün tablosu */
+
+.products-card {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.products-table-wrapper {
+  overflow-x: auto;
+}
+
+.products-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.products-table th,
+.products-table td {
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.products-table th {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.products-table td {
+  font-size: 14px;
+  color: #334155;
+}
+
+.product-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-button,
+.delete-button {
+  padding: 7px 11px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.edit-button {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.delete-button {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.products-error {
+  color: #b91c1c;
+}
+
+.empty-products {
+  color: #64748b;
+}
+
+@media (max-width: 1000px) {
+  .product-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .product-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .products-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+}

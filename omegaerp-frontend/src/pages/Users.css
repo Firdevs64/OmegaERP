@@ -1,0 +1,143 @@
+.users-page {
+  min-height: 100vh;
+  padding: 30px;
+  background-color: #f1f5f9;
+}
+
+.users-header {
+  margin-bottom: 25px;
+}
+
+.users-header h1 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 28px;
+}
+
+.users-header p {
+  margin: 6px 0 0;
+  color: #64748b;
+}
+
+.back-dashboard-button {
+  margin-bottom: 12px;
+  padding: 8px 13px;
+  border: none;
+  border-radius: 7px;
+  background-color: #e2e8f0;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.back-dashboard-button:hover {
+  background-color: #cbd5e1;
+}
+
+/* Mesajlar */
+
+.users-success-message {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.users-error-message {
+  margin-bottom: 18px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Tablo */
+
+.users-card {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.users-table-wrapper {
+  overflow-x: auto;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-table th,
+.users-table td {
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.users-table th {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.users-table td {
+  color: #334155;
+  font-size: 14px;
+}
+
+.role-select {
+  min-width: 120px;
+  padding: 8px 10px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background-color: white;
+  cursor: pointer;
+}
+
+/* Aktif / pasif bilgisi */
+
+.status-badge {
+  display: inline-block;
+  padding: 5px 9px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.active-user {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.passive-user {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Butonlar */
+
+.activate-button,
+.deactivate-button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 7px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.activate-button {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.deactivate-button {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.users-empty {
+  color: #64748b;
+}

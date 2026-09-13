@@ -1,0 +1,30 @@
+# Visual Studio / .NET
+.vs/
+bin/
+obj/
+*.user
+*.suo
+
+# Node / React
+node_modules/
+dist/
+
+# Environment
+.env
+.env.*
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Development config
+appsettings.Development.json
+
+# Local backend configuration
+OmegaERP.Api/appsettings.json

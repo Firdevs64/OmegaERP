@@ -1,0 +1,230 @@
+.customers-page {
+  min-height: 100vh;
+  padding: 30px;
+  background-color: #f1f5f9;
+}
+
+.customers-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.customers-header h1 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 28px;
+}
+
+.customers-header p {
+  margin: 6px 0 0;
+  color: #64748b;
+}
+
+.add-customer-button {
+  padding: 11px 18px;
+  border: none;
+  border-radius: 8px;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.add-customer-button:hover {
+  background-color: #1d4ed8;
+}
+
+/* Form */
+
+.customer-form-card {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 22px;
+}
+
+.customer-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 22px;
+}
+
+.customer-form-header h2 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 20px;
+}
+
+.customer-form-header p {
+  margin: 5px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.close-form-button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  background-color: #f1f5f9;
+  color: #475569;
+  cursor: pointer;
+}
+
+.customer-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+
+.customer-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.customer-form-group label {
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.customer-form-group input {
+  width: 100%;
+  padding: 10px 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  outline: none;
+}
+
+.customer-form-group input:focus {
+  border-color: #2563eb;
+}
+
+.address-group {
+  grid-column: span 2;
+}
+
+.customer-form-error {
+  margin-top: 18px;
+  padding: 11px 12px;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border-radius: 7px;
+}
+
+.customer-form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.cancel-button,
+.save-customer-button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 7px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background-color: #e2e8f0;
+  color: #334155;
+}
+
+.save-customer-button {
+  background-color: #2563eb;
+  color: white;
+}
+
+.save-customer-button:hover {
+  background-color: #1d4ed8;
+}
+
+/* Tablo */
+
+.customers-card {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.customers-table-wrapper {
+  overflow-x: auto;
+}
+
+.customers-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.customers-table th,
+.customers-table td {
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.customers-table th {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.customers-table td {
+  font-size: 14px;
+  color: #334155;
+}
+
+.customer-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-customer-button,
+.delete-customer-button {
+  padding: 7px 11px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.edit-customer-button {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.delete-customer-button {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.customers-error {
+  color: #b91c1c;
+}
+
+.empty-customers {
+  color: #64748b;
+}
+
+@media (max-width: 900px) {
+  .customer-form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .address-group {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 600px) {
+  .customer-form-grid {
+    grid-template-columns: 1fr;
+  }
+}

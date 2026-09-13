@@ -1,0 +1,282 @@
+.stock-page {
+  min-height: 100vh;
+  padding: 30px;
+  background-color: #f1f5f9;
+}
+
+.stock-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 25px;
+}
+
+.stock-header h1 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 28px;
+}
+
+.stock-header p {
+  margin: 6px 0 0;
+  color: #64748b;
+}
+
+.back-dashboard-button {
+  margin-bottom: 12px;
+  padding: 8px 13px;
+  border: none;
+  border-radius: 7px;
+  background-color: #e2e8f0;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.stock-header-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.stock-entry-button,
+.stock-exit-button {
+  padding: 11px 18px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.stock-entry-button {
+  background-color: #16a34a;
+}
+
+.stock-exit-button {
+  background-color: #dc2626;
+}
+
+/* Form */
+
+.stock-form-card {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 22px;
+}
+
+.stock-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 22px;
+}
+
+.stock-form-header h2 {
+  margin: 0;
+  color: #1e293b;
+}
+
+.stock-form-header p {
+  margin: 5px 0 0;
+  color: #64748b;
+}
+
+.close-form-button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.stock-form-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr;
+  gap: 18px;
+}
+
+.stock-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.stock-form-group label {
+  margin-bottom: 7px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.stock-form-group input,
+.stock-form-group select {
+  padding: 10px 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  outline: none;
+  background-color: white;
+}
+
+.stock-form-error {
+  margin-top: 18px;
+  padding: 11px;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border-radius: 7px;
+}
+
+.stock-success {
+  margin-top: 18px;
+  padding: 11px;
+  background-color: #dcfce7;
+  color: #15803d;
+  border-radius: 7px;
+}
+
+.stock-form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.cancel-button,
+.save-entry-button,
+.save-exit-button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 7px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background-color: #e2e8f0;
+  color: #334155;
+}
+
+.save-entry-button {
+  background-color: #16a34a;
+  color: white;
+}
+
+.save-exit-button {
+  background-color: #dc2626;
+  color: white;
+}
+
+/* Kritik stok */
+
+.critical-stock-card,
+.stock-movements-card {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.section-title h2 {
+  margin: 0 0 18px;
+  color: #1e293b;
+  font-size: 18px;
+}
+
+.critical-empty {
+  margin: 0;
+  color: #15803d;
+}
+
+.critical-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.critical-product {
+  border: 1px solid #fecaca;
+  background-color: #fef2f2;
+  border-radius: 9px;
+  padding: 14px;
+}
+
+.critical-product strong {
+  display: block;
+  color: #991b1b;
+}
+
+.critical-product span {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.critical-product p {
+  margin: 8px 0 0;
+  color: #7f1d1d;
+}
+
+/* Stok tablosu */
+
+.stock-table-wrapper {
+  overflow-x: auto;
+}
+
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stock-table th,
+.stock-table td {
+  padding: 13px 11px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.stock-table th {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.stock-table td {
+  color: #334155;
+  font-size: 14px;
+}
+
+.movement-badge {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.movement-entry {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.movement-exit {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.stock-error {
+  color: #b91c1c;
+}
+
+@media (max-width: 900px) {
+  .stock-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .critical-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .stock-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+}

@@ -1,0 +1,289 @@
+.current-page {
+  min-height: 100vh;
+  padding: 30px;
+  background-color: #f1f5f9;
+}
+
+.current-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 25px;
+}
+
+.current-header h1 {
+  margin: 0;
+  color: #1e293b;
+  font-size: 28px;
+}
+
+.current-header p {
+  margin: 6px 0 0;
+  color: #64748b;
+}
+
+.back-dashboard-button {
+  margin-bottom: 12px;
+  padding: 8px 13px;
+  border: none;
+  border-radius: 7px;
+  background-color: #e2e8f0;
+  color: #334155;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.current-header-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.customer-payment-button,
+.supplier-payment-button {
+  padding: 11px 16px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.customer-payment-button {
+  background-color: #16a34a;
+}
+
+.supplier-payment-button {
+  background-color: #2563eb;
+}
+
+/* Ödeme formu */
+
+.payment-form-card {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 22px;
+  margin-bottom: 22px;
+}
+
+.payment-form-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.payment-form-header h2 {
+  margin: 0;
+  color: #1e293b;
+}
+
+.payment-form-header p {
+  margin: 5px 0 0;
+  color: #64748b;
+}
+
+.payment-form-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr;
+  gap: 18px;
+}
+
+.payment-form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.payment-form-group label {
+  margin-bottom: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.payment-form-group input,
+.payment-form-group select {
+  padding: 10px 11px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background-color: white;
+}
+
+.payment-error {
+  margin-top: 15px;
+  padding: 11px;
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border-radius: 7px;
+}
+
+.payment-success {
+  margin-top: 15px;
+  padding: 11px;
+  background-color: #dcfce7;
+  color: #15803d;
+  border-radius: 7px;
+}
+
+.payment-form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.cancel-button,
+.save-customer-payment,
+.save-supplier-payment {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 7px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-button {
+  background-color: #e2e8f0;
+  color: #334155;
+}
+
+.save-customer-payment {
+  background-color: #16a34a;
+  color: white;
+}
+
+.save-supplier-payment {
+  background-color: #2563eb;
+  color: white;
+}
+
+/* Bakiye kartları */
+
+.account-summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.account-summary-card {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.account-summary-card h2 {
+  margin-top: 0;
+  font-size: 18px;
+  color: #1e293b;
+}
+
+.account-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.account-row div {
+  display: flex;
+  flex-direction: column;
+}
+
+.account-row span {
+  margin-top: 3px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.account-row b {
+  color: #1e293b;
+}
+
+/* Cari hareket tablosu */
+
+.transactions-card {
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.transactions-card h2 {
+  margin-top: 0;
+  color: #1e293b;
+  font-size: 18px;
+}
+
+.transactions-table-wrapper {
+  overflow-x: auto;
+}
+
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transactions-table th,
+.transactions-table td {
+  padding: 13px 11px;
+  text-align: left;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.transactions-table th {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.transactions-table td {
+  color: #334155;
+  font-size: 14px;
+}
+
+.transaction-badge {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.transaction-sale {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.transaction-purchase {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.transaction-payment {
+  background-color: #dcfce7;
+  color: #15803d;
+}
+
+.current-error {
+  color: #b91c1c;
+}
+
+.close-form-button {
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+@media (max-width: 900px) {
+  .payment-form-grid,
+  .account-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .current-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
