@@ -1,3 +1,6 @@
+<img width="1919" height="902" alt="image" src="https://github.com/user-attachments/assets/72559acf-9e64-4998-9b42-1993d7266545" />
+
+
 # OmegaERP
 
 OmegaERP, temel işletme süreçlerini tek bir sistem üzerinden yönetmek amacıyla geliştirdiğim full-stack bir Mini ERP projesidir.
