@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OmegaERP.Api.Models;
 
 namespace OmegaERP.Api.Data
@@ -24,61 +23,82 @@ namespace OmegaERP.Api.Data
         public DbSet<CurrentAccountTransaction> CurrentAccountTransactions { get; set; }
         public DbSet<User> Users { get; set; }
 
-        protected override void ConfigureConventions(
-            ModelConfigurationBuilder configurationBuilder)
+        public override int SaveChanges()
         {
-            // PostgreSQL "timestamp with time zone" yalnızca UTC DateTime kabul eder.
-            // Projedeki bütün DateTime alanlarını veritabanına yazmadan önce
-            // UTC olarak normalize ediyoruz.
-            configurationBuilder
-                .Properties<DateTime>()
-                .HaveConversion<UtcDateTimeConverter>();
-
-            configurationBuilder
-                .Properties<DateTime?>()
-                .HaveConversion<NullableUtcDateTimeConverter>();
+            ConvertDateTimesToUtc();
+            return base.SaveChanges();
         }
 
-        private sealed class UtcDateTimeConverter
-            : ValueConverter<DateTime, DateTime>
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
-            public UtcDateTimeConverter()
-                : base(
-                    value => value.Kind == DateTimeKind.Utc
-                        ? value
-                        : value.Kind == DateTimeKind.Local
-                            ? value.ToUniversalTime()
-                            : DateTime.SpecifyKind(value, DateTimeKind.Utc),
+            ConvertDateTimesToUtc();
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
 
-                    value => DateTime.SpecifyKind(
-                        value,
-                        DateTimeKind.Utc))
+        public override Task<int> SaveChangesAsync(
+            CancellationToken cancellationToken = default)
+        {
+            ConvertDateTimesToUtc();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        public override Task<int> SaveChangesAsync(
+            bool acceptAllChangesOnSuccess,
+            CancellationToken cancellationToken = default)
+        {
+            ConvertDateTimesToUtc();
+            return base.SaveChangesAsync(
+                acceptAllChangesOnSuccess,
+                cancellationToken
+            );
+        }
+
+        private void ConvertDateTimesToUtc()
+        {
+            foreach (var entry in ChangeTracker.Entries())
             {
+                if (entry.State != EntityState.Added &&
+                    entry.State != EntityState.Modified)
+                {
+                    continue;
+                }
+
+                foreach (var property in entry.Properties)
+                {
+                    if (property.Metadata.ClrType == typeof(DateTime))
+                    {
+                        if (property.CurrentValue is DateTime dateTime)
+                        {
+                            property.CurrentValue =
+                                ConvertToUtc(dateTime);
+                        }
+                    }
+                    else if (property.Metadata.ClrType == typeof(DateTime?))
+                    {
+                        if (property.CurrentValue is DateTime nullableDateTime)
+                        {
+                            property.CurrentValue =
+                                ConvertToUtc(nullableDateTime);
+                        }
+                    }
+                }
             }
         }
 
-        private sealed class NullableUtcDateTimeConverter
-            : ValueConverter<DateTime?, DateTime?>
+        private static DateTime ConvertToUtc(DateTime value)
         {
-            public NullableUtcDateTimeConverter()
-                : base(
-                    value => !value.HasValue
-                        ? value
-                        : value.Value.Kind == DateTimeKind.Utc
-                            ? value
-                            : value.Value.Kind == DateTimeKind.Local
-                                ? value.Value.ToUniversalTime()
-                                : DateTime.SpecifyKind(
-                                    value.Value,
-                                    DateTimeKind.Utc),
-
-                    value => !value.HasValue
-                        ? value
-                        : DateTime.SpecifyKind(
-                            value.Value,
-                            DateTimeKind.Utc))
+            return value.Kind switch
             {
-            }
+                DateTimeKind.Utc => value,
+
+                DateTimeKind.Local =>
+                    value.ToUniversalTime(),
+
+                DateTimeKind.Unspecified =>
+                    DateTime.SpecifyKind(value, DateTimeKind.Utc),
+
+                _ => value
+            };
         }
     }
 }
