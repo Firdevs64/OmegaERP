@@ -3,22 +3,33 @@
 
 # OmegaERP
 
-OmegaERP, temel işletme süreçlerini tek bir sistem üzerinden yönetmek amacıyla geliştirdiğim full-stack bir Mini ERP projesidir.
+![OmegaERP Dashboard](BURAYA_MEVCUT_EKRAN_GÖRÜNTÜSÜ)
 
-Proje kapsamında ürün, stok, müşteri, tedarikçi, satış, satın alma, cari hesap ve kullanıcı yönetimi gibi temel ERP işlemleri geliştirilmiştir.
+OmegaERP, temel işletme süreçlerini tek bir sistem üzerinden yönetmek amacıyla geliştirdiğim full-stack bir Mini ERP uygulamasıdır.
 
-Backend tarafında ASP.NET Core Web API ve SQL Server, frontend tarafında ise React kullanılmıştır.
+Ürün ve stok yönetiminden satış ve satın alma işlemlerine, müşteri ve tedarikçi hesaplarından kullanıcı yetkilendirmesine kadar temel ERP süreçlerini tek bir sistem altında toplamaktadır.
 
-## Özellikler
+## 🌐 Canlı Demo
 
-- JWT tabanlı kullanıcı giriş sistemi
+Frontend: https://omega-erp-sigma.vercel.app
+
+Backend API: https://omegaerp-production.up.railway.app
+
+Swagger API Dokümantasyonu:
+https://omegaerp-production.up.railway.app/swagger/index.html
+
+> Canlı backend Railway üzerinde barındırılmaktadır. Ücretsiz servis/deneme koşullarına bağlı olarak demo bağlantısı zaman zaman erişilemez durumda olabilir.
+
+## ✨ Özellikler
+
+- JWT tabanlı kimlik doğrulama
 - Admin ve Employee rol yönetimi
 - Ürün ve kategori yönetimi
 - Müşteri yönetimi
 - Tedarikçi yönetimi
 - Satış işlemleri
 - Satın alma işlemleri
-- Otomatik stok güncelleme
+- Satış ve satın alma işlemlerine bağlı otomatik stok güncelleme
 - Manuel stok giriş ve çıkış işlemleri
 - Kritik stok takibi
 - Cari hesap takibi
@@ -28,14 +39,15 @@ Backend tarafında ASP.NET Core Web API ve SQL Server, frontend tarafında ise R
 - Kullanıcı aktif/pasif yönetimi
 - Dashboard üzerinden genel sistem özeti
 
-## Kullanılan Teknolojiler
+## 🛠️ Kullanılan Teknolojiler
 
 ### Backend
 
 - ASP.NET Core Web API
 - C#
 - Entity Framework Core
-- SQL Server
+- PostgreSQL
+- Npgsql
 - JWT Authentication
 - Swagger
 
@@ -47,7 +59,14 @@ Backend tarafında ASP.NET Core Web API ve SQL Server, frontend tarafında ise R
 - Axios
 - CSS
 
-## Proje Yapısı
+### Deployment
+
+- Vercel — Frontend
+- Railway — Backend API
+- Railway PostgreSQL — Veritabanı
+- GitHub — Versiyon kontrolü
+
+## 📁 Proje Yapısı
 
 ```text
 OmegaERP
@@ -56,13 +75,15 @@ OmegaERP
 │   ├── Controllers
 │   ├── Data
 │   ├── DTOs
+│   ├── Migrations
 │   ├── Models
 │   └── Program.cs
 │
-└── omegaerp-frontend
-    ├── src
-    │   ├── components
-    │   ├── pages
-    │   └── services
-    │
-    └── package.json
+├── omegaerp-frontend
+│   ├── src
+│   │   ├── components
+│   │   ├── pages
+│   │   └── services
+│   └── package.json
+│
+└── README.md
