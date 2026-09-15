@@ -96,7 +96,7 @@ namespace OmegaERP.Api.Controllers
             }
 
             // Oluşturulma tarihini backend tarafında belirliyoruz.
-            product.CreatedAt = DateTime.Now;
+            product.CreatedAt = DateTime.UtcNow;
 
             // Yeni ürün varsayılan olarak aktif olsun.
             product.IsActive = true;

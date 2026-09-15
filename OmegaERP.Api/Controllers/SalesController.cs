@@ -148,15 +148,15 @@ namespace OmegaERP.Api.Controllers
 
                     // Otomatik satış/fatura numarası oluşturuyoruz.
                     InvoiceNumber =
-                        $"SAT-{DateTime.Now:yyyyMMddHHmmssfff}",
+                        $"SAT-{DateTime.UtcNow:yyyyMMddHHmmssfff}",
 
-                    SaleDate = DateTime.Now,
+                    SaleDate = DateTime.UtcNow,
 
                     TotalAmount = 0,
 
                     Status = "Completed",
 
-                    CreatedAt = DateTime.Now
+                    CreatedAt = DateTime.UtcNow
                 };
 
 
@@ -253,7 +253,7 @@ namespace OmegaERP.Api.Controllers
                         Description =
                             $"Satış - {sale.InvoiceNumber}",
 
-                        TransactionDate = DateTime.Now
+                        TransactionDate = DateTime.UtcNow
                     };
 
                     _context.StockMovements.Add(stockMovement);
@@ -274,7 +274,7 @@ namespace OmegaERP.Api.Controllers
                     TransactionType = "Sale",
                     Amount = totalAmount,
                     Description = $"Satış - {sale.InvoiceNumber}",
-                    TransactionDate = DateTime.Now
+                    TransactionDate = DateTime.UtcNow
                 };
 
                 _context.CurrentAccountTransactions.Add(currentTransaction);

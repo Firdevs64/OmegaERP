@@ -135,7 +135,7 @@ namespace OmegaERP.Api.Controllers
                 TransactionType = "CustomerPayment",
                 Amount = request.Amount,
                 Description = request.Description ?? "Müşteri ödemesi",
-                TransactionDate = DateTime.Now
+                TransactionDate = DateTime.UtcNow
             };
 
             _context.CurrentAccountTransactions.Add(transaction);
@@ -188,7 +188,7 @@ namespace OmegaERP.Api.Controllers
                 TransactionType = "SupplierPayment",
                 Amount = request.Amount,
                 Description = request.Description ?? "Tedarikçi ödemesi",
-                TransactionDate = DateTime.Now
+                TransactionDate = DateTime.UtcNow
             };
 
             _context.CurrentAccountTransactions.Add(transaction);

@@ -68,7 +68,7 @@ namespace OmegaERP.Api.Controllers
 
             supplier.CurrentBalance = 0;
             supplier.IsActive = true;
-            supplier.CreatedAt = DateTime.Now;
+            supplier.CreatedAt = DateTime.UtcNow;
 
             _context.Suppliers.Add(supplier);
 

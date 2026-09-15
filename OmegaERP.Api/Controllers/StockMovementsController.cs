@@ -57,7 +57,7 @@ namespace OmegaERP.Api.Controllers
                 MovementType = "ManualEntry",
                 Quantity = quantity,
                 Description = description,
-                TransactionDate = DateTime.Now
+                TransactionDate = DateTime.UtcNow
             };
 
             _context.StockMovements.Add(movement);
@@ -108,7 +108,7 @@ namespace OmegaERP.Api.Controllers
                 MovementType = "ManualExit",
                 Quantity = quantity,
                 Description = description,
-                TransactionDate = DateTime.Now
+                TransactionDate = DateTime.UtcNow
             };
 
             _context.StockMovements.Add(movement);

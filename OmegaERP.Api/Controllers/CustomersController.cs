@@ -59,7 +59,7 @@ namespace OmegaERP.Api.Controllers
             customer.CurrentBalance = 0;
 
             // Oluşturulma tarihini backend tarafında belirliyoruz.
-            customer.CreatedAt = DateTime.Now;
+            customer.CreatedAt = DateTime.UtcNow;
 
             _context.Customers.Add(customer);
 
