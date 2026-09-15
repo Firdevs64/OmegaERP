@@ -49,16 +49,18 @@ namespace OmegaERP.Api
 
             builder.Services.AddAuthorization();
 
-            // Local frontend + Vercel frontend
+            // ---------------------------------------------------------
+            // CORS
+            // ---------------------------------------------------------
+            // Localhost ve Vercel dahil frontend isteklerine izin veriyoruz.
+            // Canlý baðlantýyý test ettikten sonra istersek
+            // sadece belirli domainlere izin verecek þekilde daraltabiliriz.
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("FrontendPolicy", policy =>
                 {
                     policy
-                        .WithOrigins(
-                            "http://localhost:5173",
-                            "https://omega-erp-sigma.vercel.app"
-                        )
+                        .AllowAnyOrigin()
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
@@ -70,15 +72,15 @@ namespace OmegaERP.Api
 
             string? connectionString;
 
-            // Railway'de tanýmladýðýmýz DATABASE_URL
+            // Railway'de tanýmlanan DATABASE_URL
             var databaseUrl =
                 Environment.GetEnvironmentVariable("DATABASE_URL");
 
             if (!string.IsNullOrWhiteSpace(databaseUrl))
             {
-                // Railway DATABASE_URL genellikle:
+                // Railway DATABASE_URL:
                 // postgresql://user:password@host:port/database
-                // biçimindedir.
+
                 var databaseUri = new Uri(databaseUrl);
 
                 var userInfo = databaseUri.UserInfo.Split(
@@ -114,8 +116,8 @@ namespace OmegaERP.Api
             }
             else
             {
-                // Local çalýþtýrmada appsettings.json /
-                // appsettings.Development.json kullanýlacak.
+                // Local çalýþtýrmada appsettings.json veya
+                // appsettings.Development.json kullanýlýr.
                 connectionString =
                     builder.Configuration.GetConnectionString(
                         "DefaultConnection"
@@ -136,6 +138,10 @@ namespace OmegaERP.Api
             builder.Services.AddControllers();
 
             builder.Services.AddEndpointsApiExplorer();
+
+            // ---------------------------------------------------------
+            // Swagger
+            // ---------------------------------------------------------
 
             builder.Services.AddSwaggerGen(options =>
             {
@@ -172,8 +178,11 @@ namespace OmegaERP.Api
 
             var app = builder.Build();
 
-            // Bekleyen Entity Framework migration'larýný otomatik uygula.
-            // Railway ilk çalýþtýðýnda PostgreSQL tablolarý oluþturulacak.
+            // ---------------------------------------------------------
+            // Migration
+            // ---------------------------------------------------------
+            // Railway baþladýðýnda bekleyen migration'larý PostgreSQL'e uygular.
+
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider
@@ -182,12 +191,17 @@ namespace OmegaERP.Api
                 db.Database.Migrate();
             }
 
-            // Swagger canlý ortamda da açýk
+            // ---------------------------------------------------------
+            // Middleware
+            // ---------------------------------------------------------
+
+            // Swagger canlý ortamda da açýk.
             app.UseSwagger();
             app.UseSwaggerUI();
 
             app.UseHttpsRedirection();
 
+            // CORS authentication'dan önce çalýþmalý.
             app.UseCors("FrontendPolicy");
 
             app.UseAuthentication();
