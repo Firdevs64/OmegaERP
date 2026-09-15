@@ -3,8 +3,6 @@
 
 # OmegaERP
 
-![OmegaERP Dashboard](BURAYA_MEVCUT_EKRAN_GÖRÜNTÜSÜ)
-
 OmegaERP, temel işletme süreçlerini tek bir sistem üzerinden yönetmek amacıyla geliştirdiğim full-stack bir Mini ERP uygulamasıdır.
 
 Ürün ve stok yönetiminden satış ve satın alma işlemlerine, müşteri ve tedarikçi hesaplarından kullanıcı yetkilendirmesine kadar temel ERP süreçlerini tek bir sistem altında toplamaktadır.
