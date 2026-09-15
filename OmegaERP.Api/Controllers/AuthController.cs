@@ -87,6 +87,9 @@ namespace OmegaERP.Api.Controllers
             );
 
             _context.Users.Add(user);
+            Console.WriteLine(
+    $"CREATEDAT DEBUG => {user.CreatedAt:o} | KIND => {user.CreatedAt.Kind}"
+);
 
             await _context.SaveChangesAsync();
 

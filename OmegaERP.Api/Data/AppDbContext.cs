@@ -20,25 +20,32 @@ namespace OmegaERP.Api.Data
         public DbSet<PurchaseItem> PurchaseItems { get; set; }
         public DbSet<Sale> Sales { get; set; }
         public DbSet<SaleItem> SaleItems { get; set; }
-        public DbSet<CurrentAccountTransaction> CurrentAccountTransactions { get; set; }
+
+        public DbSet<CurrentAccountTransaction> CurrentAccountTransactions
+        {
+            get;
+            set;
+        }
+
         public DbSet<User> Users { get; set; }
 
         public override int SaveChanges()
         {
-            ConvertDateTimesToUtc();
+            NormalizeDateTimesToUtc();
             return base.SaveChanges();
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
-            ConvertDateTimesToUtc();
+            NormalizeDateTimesToUtc();
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
 
         public override Task<int> SaveChangesAsync(
             CancellationToken cancellationToken = default)
         {
-            ConvertDateTimesToUtc();
+            NormalizeDateTimesToUtc();
+
             return base.SaveChangesAsync(cancellationToken);
         }
 
@@ -46,59 +53,65 @@ namespace OmegaERP.Api.Data
             bool acceptAllChangesOnSuccess,
             CancellationToken cancellationToken = default)
         {
-            ConvertDateTimesToUtc();
+            NormalizeDateTimesToUtc();
+
             return base.SaveChangesAsync(
                 acceptAllChangesOnSuccess,
                 cancellationToken
             );
         }
 
-        private void ConvertDateTimesToUtc()
+        private void NormalizeDateTimesToUtc()
         {
             foreach (var entry in ChangeTracker.Entries())
             {
-                if (entry.State != EntityState.Added &&
-                    entry.State != EntityState.Modified)
-                {
-                    continue;
-                }
-
                 foreach (var property in entry.Properties)
                 {
                     if (property.Metadata.ClrType == typeof(DateTime))
                     {
-                        if (property.CurrentValue is DateTime dateTime)
+                        if (property.CurrentValue is DateTime value)
                         {
-                            property.CurrentValue =
-                                ConvertToUtc(dateTime);
+                            property.CurrentValue = value.Kind switch
+                            {
+                                DateTimeKind.Utc => value,
+
+                                DateTimeKind.Local =>
+                                    value.ToUniversalTime(),
+
+                                DateTimeKind.Unspecified =>
+                                    DateTime.SpecifyKind(
+                                        value,
+                                        DateTimeKind.Utc
+                                    ),
+
+                                _ => value
+                            };
                         }
                     }
-                    else if (property.Metadata.ClrType == typeof(DateTime?))
+
+                    if (property.Metadata.ClrType == typeof(DateTime?))
                     {
-                        if (property.CurrentValue is DateTime nullableDateTime)
+                        if (property.CurrentValue is DateTime value)
                         {
-                            property.CurrentValue =
-                                ConvertToUtc(nullableDateTime);
+                            property.CurrentValue = value.Kind switch
+                            {
+                                DateTimeKind.Utc => value,
+
+                                DateTimeKind.Local =>
+                                    value.ToUniversalTime(),
+
+                                DateTimeKind.Unspecified =>
+                                    DateTime.SpecifyKind(
+                                        value,
+                                        DateTimeKind.Utc
+                                    ),
+
+                                _ => value
+                            };
                         }
                     }
                 }
             }
-        }
-
-        private static DateTime ConvertToUtc(DateTime value)
-        {
-            return value.Kind switch
-            {
-                DateTimeKind.Utc => value,
-
-                DateTimeKind.Local =>
-                    value.ToUniversalTime(),
-
-                DateTimeKind.Unspecified =>
-                    DateTime.SpecifyKind(value, DateTimeKind.Utc),
-
-                _ => value
-            };
         }
     }
 }
