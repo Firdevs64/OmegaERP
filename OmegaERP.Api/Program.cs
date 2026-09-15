@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Npgsql;
 using OmegaERP.Api.Data;
 using System.Text;
 
@@ -63,13 +64,73 @@ namespace OmegaERP.Api
                 });
             });
 
+            // ---------------------------------------------------------
             // PostgreSQL baðlantýsý
-            builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseNpgsql(
+            // ---------------------------------------------------------
+
+            string? connectionString;
+
+            // Railway'de tanýmladýðýmýz DATABASE_URL
+            var databaseUrl =
+                Environment.GetEnvironmentVariable("DATABASE_URL");
+
+            if (!string.IsNullOrWhiteSpace(databaseUrl))
+            {
+                // Railway DATABASE_URL genellikle:
+                // postgresql://user:password@host:port/database
+                // biçimindedir.
+                var databaseUri = new Uri(databaseUrl);
+
+                var userInfo = databaseUri.UserInfo.Split(
+                    ':',
+                    2,
+                    StringSplitOptions.None
+                );
+
+                var username =
+                    Uri.UnescapeDataString(userInfo[0]);
+
+                var password =
+                    userInfo.Length > 1
+                        ? Uri.UnescapeDataString(userInfo[1])
+                        : "";
+
+                var database =
+                    databaseUri.AbsolutePath.TrimStart('/');
+
+                var connectionBuilder =
+                    new NpgsqlConnectionStringBuilder
+                    {
+                        Host = databaseUri.Host,
+                        Port = databaseUri.Port,
+                        Username = username,
+                        Password = password,
+                        Database = database,
+                        SslMode = SslMode.Prefer
+                    };
+
+                connectionString =
+                    connectionBuilder.ConnectionString;
+            }
+            else
+            {
+                // Local çalýþtýrmada appsettings.json /
+                // appsettings.Development.json kullanýlacak.
+                connectionString =
                     builder.Configuration.GetConnectionString(
                         "DefaultConnection"
-                    )
-                )
+                    );
+            }
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new InvalidOperationException(
+                    "PostgreSQL baðlantý bilgisi bulunamadý."
+                );
+            }
+
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseNpgsql(connectionString)
             );
 
             builder.Services.AddControllers();
@@ -112,7 +173,7 @@ namespace OmegaERP.Api
             var app = builder.Build();
 
             // Bekleyen Entity Framework migration'larýný otomatik uygula.
-            // Railway ilk çalýþtýðýnda PostgreSQL tablolarý bu þekilde oluþturulacak.
+            // Railway ilk çalýþtýðýnda PostgreSQL tablolarý oluþturulacak.
             using (var scope = app.Services.CreateScope())
             {
                 var db = scope.ServiceProvider
@@ -121,8 +182,7 @@ namespace OmegaERP.Api
                 db.Database.Migrate();
             }
 
-            // Swagger'ý canlý ortamda da açýyoruz.
-            // Sunum sýrasýnda API'yi gösterebilmek için iþimize yarayacak.
+            // Swagger canlý ortamda da açýk
             app.UseSwagger();
             app.UseSwaggerUI();
 
