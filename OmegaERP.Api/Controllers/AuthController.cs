@@ -75,7 +75,7 @@ namespace OmegaERP.Api.Controllers
                 Email = request.Email,
                 RoleId = request.RoleId,
                 IsActive = true,
-                CreatedAt = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc)
+                CreatedAt = DateTime.UtcNow
             };
 
             // Şifreyi düz metin olarak saklamıyoruz.
