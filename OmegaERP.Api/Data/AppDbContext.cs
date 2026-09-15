@@ -31,20 +31,22 @@ namespace OmegaERP.Api.Data
 
         public override int SaveChanges()
         {
-            NormalizeDateTimesToUtc();
+            ConvertDateTimesToUtc();
+
             return base.SaveChanges();
         }
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
-            NormalizeDateTimesToUtc();
+            ConvertDateTimesToUtc();
+
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
 
         public override Task<int> SaveChangesAsync(
             CancellationToken cancellationToken = default)
         {
-            NormalizeDateTimesToUtc();
+            ConvertDateTimesToUtc();
 
             return base.SaveChangesAsync(cancellationToken);
         }
@@ -53,7 +55,7 @@ namespace OmegaERP.Api.Data
             bool acceptAllChangesOnSuccess,
             CancellationToken cancellationToken = default)
         {
-            NormalizeDateTimesToUtc();
+            ConvertDateTimesToUtc();
 
             return base.SaveChangesAsync(
                 acceptAllChangesOnSuccess,
@@ -61,7 +63,7 @@ namespace OmegaERP.Api.Data
             );
         }
 
-        private void NormalizeDateTimesToUtc()
+        private void ConvertDateTimesToUtc()
         {
             foreach (var entry in ChangeTracker.Entries())
             {
@@ -69,49 +71,42 @@ namespace OmegaERP.Api.Data
                 {
                     if (property.Metadata.ClrType == typeof(DateTime))
                     {
-                        if (property.CurrentValue is DateTime value)
+                        if (property.CurrentValue is DateTime dateTime)
                         {
-                            property.CurrentValue = value.Kind switch
-                            {
-                                DateTimeKind.Utc => value,
-
-                                DateTimeKind.Local =>
-                                    value.ToUniversalTime(),
-
-                                DateTimeKind.Unspecified =>
-                                    DateTime.SpecifyKind(
-                                        value,
-                                        DateTimeKind.Utc
-                                    ),
-
-                                _ => value
-                            };
+                            property.CurrentValue =
+                                ConvertToUtc(dateTime);
                         }
                     }
-
-                    if (property.Metadata.ClrType == typeof(DateTime?))
+                    else if (
+                        property.Metadata.ClrType ==
+                        typeof(DateTime?))
                     {
-                        if (property.CurrentValue is DateTime value)
+                        if (property.CurrentValue is DateTime dateTime)
                         {
-                            property.CurrentValue = value.Kind switch
-                            {
-                                DateTimeKind.Utc => value,
-
-                                DateTimeKind.Local =>
-                                    value.ToUniversalTime(),
-
-                                DateTimeKind.Unspecified =>
-                                    DateTime.SpecifyKind(
-                                        value,
-                                        DateTimeKind.Utc
-                                    ),
-
-                                _ => value
-                            };
+                            property.CurrentValue =
+                                ConvertToUtc(dateTime);
                         }
                     }
                 }
             }
+        }
+
+        private static DateTime ConvertToUtc(DateTime dateTime)
+        {
+            if (dateTime.Kind == DateTimeKind.Utc)
+            {
+                return dateTime;
+            }
+
+            if (dateTime.Kind == DateTimeKind.Local)
+            {
+                return dateTime.ToUniversalTime();
+            }
+
+            return DateTime.SpecifyKind(
+                dateTime,
+                DateTimeKind.Utc
+            );
         }
     }
 }
