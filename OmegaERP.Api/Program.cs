@@ -111,6 +111,16 @@ namespace OmegaERP.Api
 
             var app = builder.Build();
 
+            // Bekleyen Entity Framework migration'larýný otomatik uygula.
+            // Railway ilk çalýþtýðýnda PostgreSQL tablolarý bu þekilde oluþturulacak.
+            using (var scope = app.Services.CreateScope())
+            {
+                var db = scope.ServiceProvider
+                    .GetRequiredService<AppDbContext>();
+
+                db.Database.Migrate();
+            }
+
             // Swagger'ý canlý ortamda da açýyoruz.
             // Sunum sýrasýnda API'yi gösterebilmek için iþimize yarayacak.
             app.UseSwagger();
